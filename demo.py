@@ -16,11 +16,6 @@ parser.add_argument('--env', default='needItem.json', help='设置环境参数')
 # 进行解析
 args = parser.parse_args()
 
-# 判断是否存在favicon.ico文件
-if not os.path.exists("favicon.ico"):
-    st.error("请将favicon.ico文件放置在项目根目录下")
-    st.stop()
-
 st.set_page_config(
     page_title="报名系统", 
     page_icon="favicon.ico" if os.path.exists("favicon.ico") else "😊"
