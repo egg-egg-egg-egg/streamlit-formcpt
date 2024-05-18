@@ -1,0 +1,6 @@
+/infos
+/photos
+/.devcontainer
+/__pycache__
+
+*.ico
