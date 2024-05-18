@@ -3,6 +3,7 @@
         "lable":"家长手机号",
         "type":"text",
         "description":"",
+        "fill":true,
         "paras":{}
     },
     {
@@ -93,7 +94,7 @@
     },
     {
         "lable":"上传孩子寸照",
-        "type":"image",
+        "type":"file",
         "description":"",
         "paras":{
             "type":["png","jpg","jpeg"]
