@@ -8,6 +8,7 @@
     {
         "lable":"孩子民族",
         "type":"selectbox",
+        "index":null,
         "description":"",
         "paras": {
             "options": [
@@ -78,7 +79,7 @@
     },
     {
         "lable":"孩子寸照",
-        "type":"image",
+        "type":"file",
         "description":"",
         "paras":{
             "type":["png","jpg","jpeg"]
