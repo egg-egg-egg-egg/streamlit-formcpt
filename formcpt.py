@@ -63,4 +63,8 @@ class FormCpt:
     # TODO 表单数据展示
     def show_data(self):
         pass
+
+    # TODO 每个表单数据的验证
+    def form_valid(self):
+        pass
             

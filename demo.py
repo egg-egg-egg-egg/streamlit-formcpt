@@ -4,7 +4,6 @@ import os
 from typing import List,Dict
 
 import streamlit as st
-import pandas as pd
 
 import formcpt as fcpt
 
@@ -22,6 +21,9 @@ st.set_page_config(
     page_icon="favicon.ico" if os.path.exists("favicon.ico") else "😊"
     )
 st.title("全国青少年中开展综合素质测评报名")
+
+# 前往查询页面
+st.page_link("pages/demo_query.py", label="查询报名信息", icon="🔍")
 
 if st.session_state.get("init", True):
     # 读取json数据
@@ -75,36 +77,3 @@ with st.form("tableList"):
     submitted = st.form_submit_button("提交信息")
     if submitted:
         submitInfo()
-
-
-# 侧边栏组件
-with st.sidebar:
-    st.title("查看报名信息")
-
-    # 输入家长手机号
-    phone = st.text_input("输入手机号查询",placeholder="输入手机号")
-    
-    if st.button("查询") and len(phone)==11:
-        infos_dir = "./infos"
-        # 读取一个目录下的所有json文件
-        filenames = os.listdir(infos_dir)
-        for filename in filenames:
-            with open(f"{infos_dir}/{filename}",'r',encoding="utf8") as f:
-                info:dict = json.load(f)
-                
-            if info["家长手机号"] != phone:
-                continue
-
-            image_path = info["上传孩子寸照"]
-            
-            # 读取infos["上传孩子寸照"]路径中的图片
-            with open(info["上传孩子寸照"],'rb') as f:
-                st.image(f.read(),caption="孩子寸照")
-            info.pop("上传孩子寸照")
-            info.pop("家长手机号")
-            
-            # info的key作为index,value作为孩子信息字段
-            df = pd.DataFrame(info,index=[0]).T#.style.set_properties(**{'text-align': 'left'})
-            df.columns = ["孩子信息"]
-            # 将info输出为一个表格
-            infoTable = st.table(df)
