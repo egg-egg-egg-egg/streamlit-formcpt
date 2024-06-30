@@ -10,13 +10,25 @@
 ```bash
 pip install -r requirements.txt
 ```
+
 - 使用表单
 ```python
+import streamlit as st
 import formcpt as fcpt
 
-form = fcpt.FormCpt("needItem.json") # 文件名可以随意
+form = fcpt.FormCpt("needItem.json",nowshow=False) # 文件名可以随意
 
-form()
+form() # 或者form.show() 或者 直接设置nowshow=True
+
+# 判断表单是否填完整
+if form:
+    st.write("表单填写完整")
+else:
+    st.write("表单填写不完整")
+
+
+# 无论表单信息是否完整，都可以查看已经填写的信息
+st.write(form.infos)
 ```
 
 # 文件说明
@@ -78,6 +90,26 @@ form()
         "type":["png","jpg","jpeg"]
     }
 }
+```
+
+# 表单池
+
+在formcpt.py中有一个表单池，修改key和value就可以自定义表单池了。
+
+```python
+import streamlit as st
+import formcpt as fcpt
+
+fcpt.form_cpt["number"] = st.number_input
+
+f = fcpt.FormCpt([{
+        "lable":"age",
+        "type":"number",
+        "description":"填写你的年龄",
+        "fill":True,
+        "paras":{}  # 可以填st.number_input中的参数以key:value的形式
+    }],nowshow=True)
+
 ```
 
 

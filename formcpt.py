@@ -1,6 +1,6 @@
 from typing import List,Dict
 import streamlit as st
-
+import json
 # 表单池
 form_cpt = {
     "text":st.text_input,
@@ -13,22 +13,38 @@ pass
 
 
 class FormCpt:
-    def __init__(self,needItem:List[Dict]):
+    def __init__(self,needItem:List[Dict]|str,nowshow=False):
+        if isinstance(needItem,str):
+            with open(needItem,encoding="utf8") as f:
+                needItem = json.load(f)
+        needItem = {item['lable']:item for item in needItem} if isinstance(needItem,List) else needItem
+
         self.form_cpt = form_cpt
         self.needItem = needItem
-        
+        if nowshow:
+            self.show()
+            
 
     def __call__(self,*args,**kwargs):
-        for item in self.needItem:
+        for key in self.needItem:
+            item = self.needItem[key]
             cpt = form_cpt[item["type"]]
             cpt(
                 item["lable"], 
-                key=item['lable'],
+                # key=item['lable'],
                 **(item.get("paras",dict()))
             )
-            
+    
+    def show(self,*args,**kwargs):
+        self()
     
     def __bool__(self):
+        return self.check()
+    
+    def check(self):
+        """
+        检查是否按要求填完
+        """
         # 未填写的信息显示错误
         infos = {}
         checkstatus = True
@@ -48,13 +64,12 @@ class FormCpt:
     def infos(self):
         return self._infos
 
+    # TODO 保存数据
     def save(self):
-        if self.checkstatus:
-            # 保存数据
-            st.session_state.form_data = self.infos
-            st.success("表单填写成功")
-        else:
+        if not self: # 填写失败
             st.error("表单填写失败")
+            return False
+        st.success("表单填写成功")
 
     # TODO 表单数据读取
     def read(self):
