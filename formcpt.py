@@ -46,7 +46,6 @@ class FormCpt:
         检查是否按要求填完
         """
         # 未填写的信息显示错误
-        infos = {}
         checkstatus = True
         for item in self.needItem:
             info = st.session_state[item["lable"]]
@@ -55,13 +54,15 @@ class FormCpt:
                 st.error(f"请填写: {item['lable']}")
                 checkstatus = False
                 break
-            infos[item["lable"]] = info
             
-        self._infos = infos
         return checkstatus
     
     @property
     def infos(self):
+        self._infos = {}
+        for item in self.needItem:
+            self._infos[item["lable"]] = st.session_state[item["lable"]]
+
         return self._infos
 
     # TODO 保存数据
