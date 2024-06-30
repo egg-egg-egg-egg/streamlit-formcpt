@@ -20,12 +20,16 @@ form()
 ```
 
 # 文件说明
+说实话别看这么多文件，只有 formcpt.py和needItem.json要用到。
+
+
 - demo.py 是一个使用示例
-- FormCpt.py 表单组件
+- formcpt.py 表单组件
 - needItem.json 参考配置文件
 - requirements.txt 依赖库文件
 - .streamlit/config.toml st的配置文件
 
+这个项目结构确实有点乱。
 # 如何配置动态表单
 
 每一个表单的lable应该是独一无二的。
