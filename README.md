@@ -1,9 +1,30 @@
-# Introduce
+# 介绍
 这是一个可以通过配置`needItem.json`就可以动态显示不同表单组件的**streamlit**项目。
 
 `needItem.json`名字可以自定义.只需要保证传递给`FormCpt`对象的参数满足配置需要即可。
 
 随意的设置不同的表单组件和其属性，不用频繁修改代码。
+
+# 如何使用
+- 安装依赖
+```bash
+pip install -r requirements.txt
+```
+- 使用表单
+```python
+import formcpt as fcpt
+
+form = fcpt.FormCpt("needItem.json") # 文件名可以随意
+
+form()
+```
+
+# 文件说明
+- demo.py 是一个使用示例
+- FormCpt.py 表单组件
+- needItem.json 参考配置文件
+- requirements.txt 依赖库文件
+- .streamlit/config.toml st的配置文件
 
 # 如何配置动态表单
 
